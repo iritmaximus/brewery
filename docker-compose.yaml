@@ -1,0 +1,10 @@
+version: "3.7"
+
+services:
+  brewery:
+    build:
+      context: .
+    ports:
+      - "5555:5555"
+    # volumes:
+      # - ./:/home/app
