@@ -5,10 +5,11 @@
 <div id="breweries">
   <% @breweries.each do |brewery| %>
     <%= render brewery %>
-    <p>
-      <%= link_to "Show this brewery", brewery %>
-    </p>
   <% end %>
 </div>
 
-<%= link_to "New brewery", new_brewery_path %>
+<p>
+  <%= link_to "New brewery", new_brewery_path %>
+  <br>
+  <%= link_to "list of beers", beers_path %>
+</p>
