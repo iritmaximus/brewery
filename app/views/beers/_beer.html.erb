@@ -14,4 +14,13 @@
     <%= link_to beer.brewery.name, beer.brewery %>
   </p>
 
+  <p>
+    <% if beer.ratings.empty? %>
+      beer has not been rated yet!
+    <% else %>
+      beer has ratings with an average of
+      <%= beer.average_rating.to_f %> 
+    <% end %>
+  </p>
+
 </div>
