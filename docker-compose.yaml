@@ -12,4 +12,4 @@ services:
     environment:
       RAILS_ENV: "production"
       SECRET_KEY_BASE: "b21eb384e49d7620a02c6288eb462b0e5dc82038b4d7af563f0f067d4071a3a3"
-      RAILS_LOG_TO_STDOUT: true
+      RAILS_LOG_TO_STDOUT: "true"
