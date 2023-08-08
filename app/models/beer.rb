@@ -5,6 +5,6 @@ class Beer < ApplicationRecord
   has_many :ratings, dependent: :destroy
 
   def to_s
-    "#{self.name}, #{(Brewery.find_by_id self.brewery_id).name}"
+    "#{name}, #{(Brewery.find_by_id brewery_id).name}"
   end
 end

@@ -12,6 +12,6 @@ class Brewery < ApplicationRecord
 
   def restart
     self.year = 2023
-    puts "changed year to #{2023}"
+    puts "changed year to 2023"
   end
 end

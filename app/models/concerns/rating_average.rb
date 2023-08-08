@@ -5,11 +5,11 @@ module RatingAverage
     total_score = 0
     count = 0
 
-    if defined? self.beers
-      beers = self.beers
-    else
-      beers = self
-    end
+    beers = if defined? self.beers
+              self.beers
+            else
+              self
+            end
 
     beers.each do |beer|
       count += beer.ratings.count
@@ -18,24 +18,22 @@ module RatingAverage
       end
     end
 
-    if count == 0
-      return 0
-    end
+    return 0 unless count != 0
 
-     return total_score / count
+    total_score / count
   end
 
   def count_ratings
-    if defined? self.beers
-      beers = self.beers
-    else
-      beers = self
-    end
+    beers = if defined? self.beers
+              self.beers
+            else
+              self
+            end
 
     count = 0
     beers.each do |beer|
       count += beer.ratings.count
     end
-    return count
+    count
   end
 end
