@@ -7,4 +7,6 @@ Rails.application.routes.draw do
   # root "articles#index"
   get '/', to: 'breweries#index'
   get 'ratings', to: 'ratings#index'
+  post 'ratings', to: 'ratings#create'
+  get 'ratings/new', to: 'ratings#new'
 end
