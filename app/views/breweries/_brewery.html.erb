@@ -14,6 +14,16 @@
     <%= brewery.beers.count %>
   </p>
 
+  <% if brewery.count_ratings != 0 %>
+    <p>
+      This brewery has <% brewery.count_ratings %> <%= pluralize brewery.count_ratings, "rating" %> with an average of <%= brewery.average_rating%>
+    </p>
+  <% else %>
+    <p>
+      This brewery has no ratings
+    </p>
+  <% end %>
+
   <p>
   <% brewery.beers.each do |beer| %>
     <%= link_to beer.name, beer %>
