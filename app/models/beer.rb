@@ -9,4 +9,8 @@ class Beer < ApplicationRecord
     end
     return average
   end
+
+  def to_s
+    "#{self.name}, #{(Brewery.find_by_id self.brewery_id).name}"
+  end
 end
