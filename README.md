@@ -1,5 +1,8 @@
 # README
 
+## Hosting
+The project is hosted at brewery.pumppi.dev
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
