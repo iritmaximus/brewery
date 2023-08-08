@@ -74,9 +74,10 @@ end
 
 # https://github.com/mluukkai/WebPalvelinohjelmointi2023/blob/main/web/viikko1.md#sovellus-internettiin 
 group :development, :test do
-  gem 'sqlite3'
+  gem "sqlite3"
+  gem "pry-byebug"
 end
 
 group :production do
-   gem 'pg'
+   gem "pg"
 end
