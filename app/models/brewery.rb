@@ -27,7 +27,6 @@ class Brewery < ApplicationRecord
     end
 
      return total_score / count
-    "This brewery has #{count} #{pluralize count, "rating"} with an average of #{average}"
   end
 
   def count_ratings
