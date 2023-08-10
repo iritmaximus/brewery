@@ -4,7 +4,6 @@
   <% @ratings.each do |rating| %>
     <li>
       <%= render rating %>
-      <%= button_to "delete", rating_path(rating.id), method: :delete, form: { data: { turbo_confirm: "Are you sure?" }} %>
     </li>
   <% end %>
 
