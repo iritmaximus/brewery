@@ -2,38 +2,29 @@ module RatingAverage
   extend ActiveSupport::Concern
 
   def average_rating
-    total_score = 0
-    count = 0
-
-    beers = if defined? self.beers
-              self.beers
-            else
-              self
-            end
-
-    beers.each do |beer|
-      count += beer.ratings.count
-      beer.ratings.each do |rating|
-        total_score += rating.score
-      end
+    if self.class == Beer
+      ratings = [self]
+    elsif self.class == Brewery
+      # creates empty arrays for beers that have no ratings
+      # + wraps the array in an array
+      ratings = beers.map { |b| b.ratings }.reject(&:blank?)[0]
+    elsif self.class == User
+      ratings = self.ratings
+    else
+      raise "Wrong class type for calculating average, #{self.class}"
     end
 
-    return 0 unless count != 0
-
-    total_score / count
+    return 0 unless ratings.count > 0
+    ratings.map { |r| r.score }.sum / ratings.count.to_f
   end
 
   def count_ratings
-    beers = if defined? self.beers
-              self.beers
-            else
-              self
-            end
-
-    count = 0
-    beers.each do |beer|
-      count += beer.ratings.count
+    if self.class == Beer or User
+      return self.ratings.count
+    elsif self.class == Brewery
+      return self.beers.map { |b| b.ratings.count }.sum
+    else
+      raise "Wrong class type for counting ratings, #{self.class}"
     end
-    count
   end
 end

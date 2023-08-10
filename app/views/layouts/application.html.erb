@@ -11,10 +11,22 @@
   </head>
 
   <body>
+    <p>
+      <%= link_to "breweries", breweries_path %>
+      <%= link_to "beers", beers_path %>
+      <%= link_to "ratings", ratings_path %>
+      <%= link_to "users", users_path %>
+      |
+      <% if current_user.nil? %>
+        <%= link_to "Sign up", new_user_path %>
+        <%= link_to "Sign in", new_session_path %>
+      <% else %>
+        <%= link_to current_user.username, user_path(current_user.id) %>
+        <%= link_to "Rate a new beer", new_rating_path %>
+        <%= link_to "signout", signout_path, data: { "turbo-method": :delete } %>
+      <% end %>
+    </p>
     <%= yield %>
-    <% if not session[:user_id].nil? %>
-      <p><%= User.find(session[:user_id]).username %> signed in</p>
-    <% end %>
     <% if session[:last_rating].nil? %>
       <p>no ratings given</p>
     <% else %>
