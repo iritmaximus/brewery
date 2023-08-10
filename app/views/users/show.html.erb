@@ -16,7 +16,7 @@
       <% @user.ratings.each do |r| %>
         <li>
           <%=r.beer.name %> <%= r.score %>
-          <%= link_to "Delete", ratings_path(r.id), method: "delete" %>
+          <%= link_to "Delete", rating_path(r.id), data: { "turbo-method": :delete} %>
         </li>
       <% end %>
     </ul>
