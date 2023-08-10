@@ -22,6 +22,16 @@
     </ul>
   </p>
 
+  <p>
+    <strong>Beerclubs:</strong>
+    <ul>
+    <% @user.memberships.each do |m| %>
+      <li>
+        <%= link_to m.beerclub.name, beerclub_path(m.beerclub.id) %>
+      </li>
+    <% end%>
+    </ul>
+  </p>
 
   <%= link_to "Edit this user", edit_user_path(@user) %> |
   <%= link_to "Back to users", users_path %>

@@ -1,0 +1,28 @@
+<div id="<%= dom_id beerclub %>">
+  <p>
+    <strong>Name:</strong>
+    <%= beerclub.name %>
+  </p>
+
+  <p>
+    <strong>Founded:</strong>
+    <%= beerclub.founded %>
+  </p>
+
+  <p>
+    <strong>City:</strong>
+    <%= beerclub.city %>
+  </p>
+
+  <p>
+    <strong>Members:</strong>
+    <ul>
+      <% beerclub.memberships.each do |m| %>
+        <li>
+          <%= link_to m.user.username, user_path(m.user.id) %>
+        </li>
+      <% end%>
+    </ul>
+  </p>
+
+</div>
