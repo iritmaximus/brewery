@@ -7,7 +7,7 @@ module RatingAverage
     elsif instance_of?(Brewery)
       # creates empty arrays for beers that have no ratings
       # + wraps the array in an array
-      ratings = beers.map(&:b.ratings).reject(&:blank?)[0]
+      ratings = beers.map(&:ratings).reject(&:blank?)[0]
     elsif instance_of?(User)
       ratings = self.ratings
     else
@@ -16,7 +16,7 @@ module RatingAverage
 
     return 0 unless ratings.count > 0
 
-    ratings.map(&:r.score).sum / ratings.count.to_f
+    ratings.map(&:score).sum / ratings.count.to_f
   end
 
   def count_ratings
