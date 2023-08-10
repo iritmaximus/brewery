@@ -7,8 +7,7 @@ class Brewery < ApplicationRecord
   validates :name, presence: true
   validates :year, numericality: { greater_than_or_equal_to: 1040,
                                    less_than_or_equal_to: 2023,
-                                   only_integer: true
-                                  }
+                                   only_integer: true }
   def print_report
     puts name
     puts "established at year #{year}"
