@@ -30,6 +30,9 @@ class MembershipsController < ApplicationController
         format.html { redirect_to membership_url(@membership), notice: "Membership was successfully created." }
         format.json { render :show, status: :created, location: @membership }
       else
+        # TODO maybe doing something wrong but the variables of new need to be reinitialized here :D
+        @users = User.all
+        @beerclubs = Beerclub.all
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @membership.errors, status: :unprocessable_entity }
       end
