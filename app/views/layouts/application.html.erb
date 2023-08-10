@@ -27,10 +27,12 @@
       <% end %>
     </p>
     <%= yield %>
-    <% if session[:last_rating].nil? %>
-      <p>no ratings given</p>
-    <% else %>
-      <p>previous rating: <%= session[:last_rating] %></p>
+    <% if false %>
+      <% if session[:last_rating].nil? %>
+        <p>no ratings given</p>
+      <% else %>
+        <p>previous rating: <%= session[:last_rating] %></p>
+      <% end %>
     <% end %>
   </body>
 </html>
