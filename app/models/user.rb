@@ -14,7 +14,7 @@ class User < ApplicationRecord
 
   def has_proper_characters_in_password
     regex = "(?=.*[[:upper:]])(?=.*[0-9])"
-    if not password.match(regex)
+    if not password&.match(regex)
       errors.add :password, "doesn't contain uppercase letter and a number"
     end
   end
