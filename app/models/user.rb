@@ -7,7 +7,7 @@ class User < ApplicationRecord
   validates :password, length: { minimum: 3 }
   validate :has_proper_characters_in_password
 
-  has_many :ratings
+  has_many :ratings, dependent: :destroy
   has_many :beers, through: :ratings
   has_many :memberships, dependent: :destroy
   has_many :beer_clubs, through: :memberships
