@@ -17,6 +17,9 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    if not @user == current_user
+      # redirect_to user_path(@user), notice: "Not permitted to edit user"
+    end
   end
 
   # POST /users or /users.json
@@ -36,6 +39,11 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
+    if not @user == current_user
+      redirect_to user_path(@user), notice: "User not authorized to edit this user"
+      return
+    end
+
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
@@ -49,7 +57,7 @@ class UsersController < ApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
-    @user.destroy
+    @user.destroy if @user == current_user
 
     respond_to do |format|
       format.html { redirect_to users_url, notice: "User was successfully destroyed." }
