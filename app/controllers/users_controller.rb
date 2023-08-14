@@ -17,9 +17,8 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    if not @user == current_user
-      # redirect_to user_path(@user), notice: "Not permitted to edit user"
-    end
+    return if @user == current_user
+    # redirect_to user_path(@user), notice: "Not permitted to edit user"
   end
 
   # POST /users or /users.json
@@ -39,7 +38,6 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
-
     respond_to do |format|
       if user_params[:username].nil? && @user == current_user && @user.update(user_params)
         format.html { redirect_to user_url(@user), notice: "User was successfully updated." }

@@ -10,9 +10,9 @@ class Brewery < ApplicationRecord
   validate :creation_year_not_in_future
 
   def creation_year_not_in_future
-    if year > Time.now.year
-      errors.add :year, "cannot be in the future"
-    end
+    return unless year > Time.now.year
+
+    errors.add :year, "cannot be in the future"
   end
 
   def print_report

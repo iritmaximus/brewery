@@ -8,9 +8,8 @@ class Beerclub < ApplicationRecord
   validate :creation_year_not_in_future
 
   def creation_year_not_in_future
-    if founded > Time.now.year
-      errors.add :founded, "cannot be in the future"
-    end
-  end
+    return unless founded > Time.now.year
 
+    errors.add :founded, "cannot be in the future"
+  end
 end
