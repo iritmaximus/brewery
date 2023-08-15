@@ -14,7 +14,7 @@ class MembershipsTest < ApplicationSystemTestCase
     visit memberships_url
     click_on "New membership"
 
-    fill_in "Beer club", with: @membership.beer_club_id
+    fill_in "Beer club", with: @membership.beerclub_id
     fill_in "User", with: @membership.user_id
     click_on "Create Membership"
 
@@ -26,7 +26,7 @@ class MembershipsTest < ApplicationSystemTestCase
     visit membership_url(@membership)
     click_on "Edit this membership", match: :first
 
-    fill_in "Beer club", with: @membership.beer_club_id
+    fill_in "Beer club", with: @membership.beerclub_id
     fill_in "User", with: @membership.user_id
     click_on "Update Membership"
 
