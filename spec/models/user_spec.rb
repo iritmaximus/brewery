@@ -41,7 +41,7 @@ RSpec.describe User, type: :model do
     end
 
     it "returns the most liked style" do
-      create_beer_with_many_ratings({user: user}, 10, 10, 20)
+      create_beer_with_many_ratings({user: user, brewery: brewery}, 10, 10, 20)
       beer_with_favorite_style = FactoryBot.create(:beer, style: "No")
       FactoryBot.create(:rating, beer: beer_with_favorite_style, score: 50, user: user)
 
@@ -49,17 +49,36 @@ RSpec.describe User, type: :model do
     end
 
     it "also returns the most liked style" do
-      create_beer_with_many_ratings({user: user}, 20, 30, 20)
+      create_beer_with_many_ratings({user: user, brewery: brewery}, 20, 30, 20)
       beer_with_favorite_style = FactoryBot.create(:beer, style: "No")
       FactoryBot.create(:rating, beer: beer_with_favorite_style, score: 50, user: user)
 
       expect(user.favorite_style).to eq "Yes"
     end
   end
+
+  describe "favorite_brewery" do
+    let(:user){ FactoryBot.create(:user) }
+    let(:brewery1){ FactoryBot.create(:brewery) }
+    let(:brewery2){ FactoryBot.create(:brewery, name: "Boring") }
+    before do create_beer_with_many_ratings({user: user, brewery: brewery1}, 20, 30, 20, 40) end
+    before do create_beer_with_many_ratings({user: user, brewery: brewery2}, 20, 30, 20, 50) end
+
+    it "is a defined method" do
+      expect(user).to respond_to(:favorite_brewery)
+    end
+
+    it "returns a string" do
+      expect(user.favorite_brewery).to be_a(String)
+    end
+    it "returns the correct brewery" do
+      expect(user.favorite_brewery).to eq "Boring"
+    end
+  end
 end
 
 def create_beer_with_rating(object, score)
-  beer = FactoryBot.create(:beer)
+  beer = FactoryBot.create(:beer, brewery: object[:brewery])
   rating = FactoryBot.create(:rating, beer: beer, score: score, user: object[:user])
 end
 

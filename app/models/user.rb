@@ -20,27 +20,47 @@ class User < ApplicationRecord
   end
 
   def favorite_style
-    # create hash with key being style name and value first 0 and then the score
-    styles = {}
-    ratings.each do |rating|
-      if styles[rating.beer.style].nil?
-        styles[rating.beer.style] = rating.score
-      else
-        styles[rating.beer.style] += rating.score
-      end
-    end
-    # determine which style hast the most points
-    style_with_most_points(styles)
+    styles = favorite_attribute "styles"
+    item_with_most_points(styles)
+  end
+
+  def favorite_brewery
+    breweries = favorite_attribute "breweries"
+    item_with_most_points(breweries)
   end
 
   private
 
-  def style_with_most_points(styles)
+  def favorite_attribute(target)
+    # not the fastest implementation but its DRY complient
+
+    items = {}
+    ratings.each do |rating|
+      attributes = {
+        # create hash with key being style name and value first 0 and then the score
+        "styles" => rating.beer.style,
+        # iterate through ratings and add scores depending on
+        # which brewery the beer that was rated was made in
+        "breweries" => rating.beer.brewery.name
+      }
+
+      raise "Incorrect target" if attributes[target].nil?
+
+      if items[attributes[target]].nil?
+        items[attributes[target]] = rating.score
+      else
+        items[attributes[target]] += rating.score
+      end
+    end
+    items
+  end
+
+  def item_with_most_points(items)
     highest = { name: "", total: 0 }
-    styles.each do |style|
-      if style[1] > highest[:total]
-        highest[:name] = style[0]
-        highest[:total] = style[1]
+    items.each do |item|
+      if item[1] > highest[:total]
+        highest[:name] = item[0]
+        highest[:total] = item[1]
       end
     end
     highest[:name]
