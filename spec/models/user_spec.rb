@@ -27,4 +27,42 @@ RSpec.describe User, type: :model do
     expect(userMöötti).to_not be_valid
     expect(userMaatti).to_not be_valid
   end
+
+  describe "favourite_style" do
+    let(:user){ FactoryBot.create(:user) }
+    let(:brewery){ FactoryBot.create(:brewery) }
+
+    it "is defined method" do
+      expect(user).to respond_to(:favorite_style)
+    end
+
+    it "returns a string" do
+      expect(user.favorite_style).to be_a(String)
+    end
+
+    it "returns the most liked style" do
+      create_beer_with_many_ratings({user: user}, 10, 10, 20)
+      beer_with_favorite_style = FactoryBot.create(:beer, style: "No")
+      FactoryBot.create(:rating, beer: beer_with_favorite_style, score: 50, user: user)
+
+      expect(user.favorite_style).to eq "No"
+    end
+
+    it "also returns the most liked style" do
+      create_beer_with_many_ratings({user: user}, 20, 30, 20)
+      beer_with_favorite_style = FactoryBot.create(:beer, style: "No")
+      FactoryBot.create(:rating, beer: beer_with_favorite_style, score: 50, user: user)
+    end
+  end
+end
+
+def create_beer_with_rating(object, score)
+  beer = FactoryBot.create(:beer)
+  rating = FactoryBot.create(:rating, beer: beer, score: score, user: object[:user])
+end
+
+def create_beer_with_many_ratings(object, *scores)
+  scores.each do |score|
+    create_beer_with_rating(object, score)
+  end
 end

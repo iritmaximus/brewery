@@ -18,4 +18,25 @@ class User < ApplicationRecord
 
     errors.add :password, "doesn't contain uppercase letter and a number"
   end
+
+  def favorite_style
+    # create hash with key being style name and value first 0 and then the score
+    styles = {}
+    self.ratings.each do |rating|
+      styles[rating.beer.style] = 0
+    end
+    self.ratings.each do |rating|
+      styles[rating.beer.style] += rating.score
+    end
+
+    # determine which style hast the most points
+    highest = {name: "", total: 0}
+    styles.each do |style|
+      if style[1] > highest[:total]
+        highest[:name] = style[0]
+        highest[:total] = style[1]
+      end
+    end
+    return highest[:name]
+  end
 end
