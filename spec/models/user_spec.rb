@@ -52,6 +52,8 @@ RSpec.describe User, type: :model do
       create_beer_with_many_ratings({user: user}, 20, 30, 20)
       beer_with_favorite_style = FactoryBot.create(:beer, style: "No")
       FactoryBot.create(:rating, beer: beer_with_favorite_style, score: 50, user: user)
+
+      expect(user.favorite_style).to eq "Yes"
     end
   end
 end
