@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
-ARG RUBY_VERSION=3.1.2
+ARG RUBY_VERSION=3.1.4
 FROM ruby:$RUBY_VERSION-slim as base
 
 LABEL fly_launch_runtime="rails"
@@ -24,7 +24,7 @@ FROM base as build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential libpq-dev pkg-config
+    apt-get install --no-install-recommends -y build-essential libpq-dev pkg-config libc6
 
 # Install application gems
 COPY --link Gemfile Gemfile.lock ./
@@ -68,4 +68,4 @@ ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD ["./bin/rails", "server"]
+CMD ["./bin/rails", "server", "-e", "production"]
