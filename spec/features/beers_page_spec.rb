@@ -1,19 +1,31 @@
 require "rails_helper"
 
 describe "Beers page" do
-  it "should display all beers in the database" do
+  let(:brewery){ FactoryBot.create :brewery }
+  let(:beer){ FactoryBot.create :beer }
+
+  it "should be empty before tests" do
     visit beers_path
     expect(page).to have_content "Beers"
-    expect(page).to have_content "Iso 3"
-    expect(page).to have_content "Karhu"
-    expect(page).to have_content "Tuplahumala"
-    expect(page).to have_content "Huvila Pale Ale"
-    expect(page).to have_content "X Porter"
-    expect(page).to have_content "Hefeweizen"
-    expect(page).to have_content "Helles"
+
+    expect(page).to_not have_content "Iso 3"
+    expect(page).to_not have_content "Something good"
+    expect(Beer.all.count).to be_equal(0)
+  end
+
+  it "should display all beers in the database" do
+    brewery.save()
+    beer.save()
+
+    visit beers_path
+    expect(page).to have_content "Beers"
+    expect(page).to have_content "Something good"
+
   end
 
   it "should be able to add a new beer" do
+    brewery.save()
+
     visit new_beer_path
     expect(page).to have_content "New beer"
     expect(page).to_not have_content "New fancy test beer"
@@ -23,6 +35,7 @@ describe "Beers page" do
 
     expect(page).to have_content "Beer was successfully created"
     expect(page).to have_content "New fancy test beer"
+    expect(Beer.find_by(name: "New fancy test beer").nil?).to be_equal(false)
   end
 
   it "should not be able to add a new beer without a proper beer name" do
