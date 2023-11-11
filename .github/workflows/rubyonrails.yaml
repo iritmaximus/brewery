@@ -39,6 +39,10 @@ jobs:
       - name: Run RuboCop
         run: bundle exec rubocop --parallel
 
+  deploy:
+    runs-on: ubuntu-22.04
+    needs: test
+    steps:
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - run: flyctl deploy --remote-only
         env:
