@@ -1,6 +1,7 @@
 require "rails_helper"
 
 describe "Beers page" do
+  let(:user) { FactoryBot.create :user }
   let(:brewery){ FactoryBot.create :brewery }
   let(:beer){ FactoryBot.create :beer }
 
@@ -24,7 +25,13 @@ describe "Beers page" do
   end
 
   it "should be able to add a new beer" do
+    user.save()
     brewery.save()
+
+    visit new_session_path
+    fill_in "username", with: "MööttiTesti"
+    fill_in "password", with: "Unsecure1"
+    click_button "Log in"
 
     visit new_beer_path
     expect(page).to have_content "New beer"
@@ -39,6 +46,13 @@ describe "Beers page" do
   end
 
   it "should not be able to add a new beer without a proper beer name" do
+    user.save()
+
+    visit new_session_path
+    fill_in "username", with: "MööttiTesti"
+    fill_in "password", with: "Unsecure1"
+    click_button "Log in"
+
     visit new_beer_path
     expect(page).to have_content "New beer"
     expect(page).to_not have_content "New fancy test beer"
