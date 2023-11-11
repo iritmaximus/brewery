@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    return if @user == current_user
+    nil if @user == current_user
     # redirect_to user_path(@user), notice: "Not permitted to edit user"
   end
 
