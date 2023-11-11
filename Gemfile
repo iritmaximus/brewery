@@ -72,7 +72,7 @@ group :test do
   gem "rspec-rails"
   gem "factory_bot_rails"
   gem "launchy"
-  gem 'simplecov', require: false
+  gem "simplecov", require: false
 end
 
 
