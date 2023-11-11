@@ -1,4 +1,5 @@
 # README
+[![Maintainability](https://api.codeclimate.com/v1/badges/cb1e7757f34c10b44e91/maintainability)](https://codeclimate.com/github/iritmaximus/brewery/maintainability)
 
 ## Hosting
 The project is hosted at brewery.pumppi.dev
