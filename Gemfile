@@ -78,6 +78,7 @@ group :test do
   gem "launchy"
   gem "simplecov", require: false
   gem "rubocop"
+  gem "webmock"
 end
 
 
