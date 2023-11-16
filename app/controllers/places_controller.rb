@@ -14,6 +14,6 @@ class PlacesController < ApplicationController
 
   def show
     places = BeermappingApi.places_in(session[:last_city_search])
-    @place = places.select { |place| place.id == params[:id]}[0]
+    @place = places.select { |place| place.id == params[:id] }[0]
   end
 end

@@ -5,6 +5,7 @@ class BeermappingApi
     # gets caught by places.empty?
     # TODO fix error message, No locations in ""
     return "" if city == ""
+
     Rails.cache.fetch(city, expires_in: 1.week) { get_places_in city }
   end
 
