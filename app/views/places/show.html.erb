@@ -1,0 +1,8 @@
+<h1><%= @place.name %></h1>
+
+<% Place.rendered_fields.each do |field| %>
+  <p>
+    <%= field.capitalize %>:
+    <%= @place.send(field) %>
+  </p>
+<% end %>

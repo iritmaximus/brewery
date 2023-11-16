@@ -8,12 +8,16 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   get '/', to: 'breweries#index'
-  get 'places', to: 'places#index'
-  post 'places', to: 'places#search'
+
   get 'signup', to: 'users#new'
   get 'signin', to: 'sessions#new'
   delete 'signout', to: 'sessions#destroy'
+
+  post 'places', to: 'places#search'
+
+
   resources :ratings, only: [:index, :new, :create, :destroy]
   resource :session, only: [:new, :create, :destroy]
   resources :memberships, only: [:new, :create, :destroy]
+  resources :places, only: [:index, :show]
 end
