@@ -89,7 +89,10 @@ group :development, :test do
 end
 
 group :production do
-   gem "pg"
+  # TODO replace sqlite3 with postgres in production
+  # also remember config/database.yml
+  gem "sqlite3"
+   #gem "pg"
 end
 
 gem "dockerfile-rails", ">= 1.5", :group => :development
