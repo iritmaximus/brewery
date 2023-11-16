@@ -3,6 +3,20 @@
 <%= render @beerclub %>
 
 <div>
+  <% if current_user %>
+    <%= form_with model: Membership.new do |form| %>
+      <%= form.hidden_field :beerclub_id, value: @beerclub.id %>
+      <%= form.hidden_field :user_id, value: current_user.id %>
+      <%= form.submit "Join the beer club" %>
+    <% end %>
+  <% else %>
+    <p>Log in to join this beerclub</p>
+  <% end %>
+</div>
+
+<br>
+
+<div>
   <%= link_to "Edit this beerclub", edit_beerclub_path(@beerclub) if current_user %> |
   <%= link_to "Back to beerclubs", beerclubs_path %>
 
