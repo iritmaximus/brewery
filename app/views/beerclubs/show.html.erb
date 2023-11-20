@@ -4,11 +4,16 @@
 
 <div>
   <% if current_user %>
-    <%= form_with model: Membership.new do |form| %>
-      <%= form.hidden_field :beerclub_id, value: @beerclub.id %>
-      <%= form.hidden_field :user_id, value: current_user.id %>
-      <%= form.submit "Join the beer club" %>
+    <% if @membership.nil? %>
+      <%= form_with model: Membership.new do |form| %>
+        <%= form.hidden_field :beerclub_id, value: @beerclub.id %>
+        <%= form.hidden_field :user_id, value: current_user.id %>
+        <%= form.submit "Join the beer club" %>
+      <% end %>
+    <% else %>
+      <p>You are already in this group</p>
     <% end %>
+
   <% else %>
     <p>Log in to join this beerclub</p>
   <% end %>

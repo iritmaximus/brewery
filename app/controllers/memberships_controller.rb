@@ -27,7 +27,7 @@ class MembershipsController < ApplicationController
 
     respond_to do |format|
       if @membership.save
-        format.html { redirect_to membership_url(@membership), notice: "Membership was successfully created." }
+        format.html { redirect_to membership_url(@membership), notice: "Successfully joined the beerclub." }
         format.json { render :show, status: :created, location: @membership }
       else
         # TODO maybe doing something wrong but the variables of new need to be reinitialized here :D

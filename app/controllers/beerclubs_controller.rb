@@ -9,6 +9,7 @@ class BeerclubsController < ApplicationController
 
   # GET /beerclubs/1 or /beerclubs/1.json
   def show
+    @membership = @beerclub.memberships.find_by user_id: current_user
   end
 
   # GET /beerclubs/new
