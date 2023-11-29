@@ -29,8 +29,9 @@ RSpec.describe User, type: :model do
   end
 
   describe "favourite_style" do
-    let(:user){ FactoryBot.create(:user) }
-    let(:brewery){ FactoryBot.create(:brewery) }
+    let(:user) { FactoryBot.create(:user) }
+    let(:brewery) { FactoryBot.create(:brewery) }
+    let(:style) { FactoryBot.create(:style) }
 
     it "is defined method" do
       expect(user).to respond_to(:favorite_style)
@@ -41,16 +42,17 @@ RSpec.describe User, type: :model do
     end
 
     it "returns the most liked style" do
-      create_beer_with_many_ratings({user: user, brewery: brewery}, 10, 10, 20)
-      beer_with_favorite_style = FactoryBot.create(:beer, style: "No")
+      create_beer_with_many_ratings({user: user, brewery: brewery, style: style.id}, 10, 10, 20)
+      beer_with_favorite_style = FactoryBot.create :beer, style_id: style.id
       FactoryBot.create(:rating, beer: beer_with_favorite_style, score: 50, user: user)
 
-      expect(user.favorite_style).to eq "No"
+      expect(user.favorite_style).to eq "Yes"
     end
 
     it "also returns the most liked style" do
-      create_beer_with_many_ratings({user: user, brewery: brewery}, 20, 30, 20)
-      beer_with_favorite_style = FactoryBot.create(:beer, style: "No")
+      other_style = Style.create name: "No"
+      create_beer_with_many_ratings({user: user, brewery: brewery, style: style.id}, 20, 30, 20)
+      beer_with_favorite_style = FactoryBot.create(:beer, style_id: other_style.id)
       FactoryBot.create(:rating, beer: beer_with_favorite_style, score: 50, user: user)
 
       expect(user.favorite_style).to eq "Yes"
@@ -61,8 +63,9 @@ RSpec.describe User, type: :model do
     let(:user){ FactoryBot.create(:user) }
     let(:brewery1){ FactoryBot.create(:brewery) }
     let(:brewery2){ FactoryBot.create(:brewery, name: "Boring") }
-    before do create_beer_with_many_ratings({user: user, brewery: brewery1}, 20, 30, 20, 40) end
-    before do create_beer_with_many_ratings({user: user, brewery: brewery2}, 20, 30, 20, 50) end
+    let(:style) { FactoryBot.create(:style) }
+    before do create_beer_with_many_ratings({user: user, brewery: brewery1, style: style.id}, 20, 30, 20, 40) end
+    before do create_beer_with_many_ratings({user: user, brewery: brewery2, style: style.id}, 20, 30, 20, 50) end
 
     it "is a defined method" do
       expect(user).to respond_to(:favorite_brewery)
@@ -78,7 +81,7 @@ RSpec.describe User, type: :model do
 end
 
 def create_beer_with_rating(object, score)
-  beer = FactoryBot.create(:beer, brewery: object[:brewery])
+  beer = FactoryBot.create(:beer, brewery: object[:brewery], style_id: object[:style])
   rating = FactoryBot.create(:rating, beer: beer, score: score, user: object[:user])
 end
 

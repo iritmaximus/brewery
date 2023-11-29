@@ -36,9 +36,10 @@ class User < ApplicationRecord
 
     items = {}
     ratings.each do |rating|
+      style = Style.find_by_id rating.beer.style_id
       attributes = {
         # create hash with key being style name and value first 0 and then the score
-        "styles" => rating.beer.style,
+        "styles" => style.name,
         # iterate through ratings and add scores depending on
         # which brewery the beer that was rated was made in
         "breweries" => rating.beer.brewery.name

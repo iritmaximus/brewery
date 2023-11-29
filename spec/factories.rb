@@ -10,9 +10,13 @@ FactoryBot.define do
     year { 2023 }
   end
 
+  factory :style do
+    name { "Yes" }
+  end
+
   factory :beer do
     name { "Something good" }
-    style { "Yes" }
+    style
     brewery
   end
 

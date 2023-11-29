@@ -3,7 +3,8 @@ require "rails_helper"
 describe "Beers page" do
   let(:user) { FactoryBot.create :user }
   let(:brewery){ FactoryBot.create :brewery }
-  let(:beer){ FactoryBot.create :beer }
+  let(:style) { FactoryBot.create :style }
+  let(:beer){ FactoryBot.create :beer, brewery: brewery, style_id: style.id }
 
   it "should be empty before tests" do
     visit beers_path
@@ -16,6 +17,7 @@ describe "Beers page" do
 
   it "should display all beers in the database" do
     brewery.save()
+    style.save()
     beer.save()
 
     visit beers_path
@@ -26,6 +28,7 @@ describe "Beers page" do
 
   it "should be able to add a new beer" do
     user.save()
+    style.save()
     brewery.save()
 
     visit new_session_path
