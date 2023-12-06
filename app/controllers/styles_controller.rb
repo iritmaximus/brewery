@@ -51,8 +51,8 @@ class StylesController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
-  private 
+
+  private
 
   def style_params
     params.require(:style).permit(:name, :description)
