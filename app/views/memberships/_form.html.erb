@@ -12,16 +12,16 @@
   <% end %>
 
   <div>
-      <%= form.label :user_id, style: "display: block" %>
-      <%= form.select :user_id, options_from_collection_for_select(@users, :id, :username) %>
+      <%= form.label :user_id, class:"form-label", style: "display: block" %>
+      <%= form.select :user_id, options_from_collection_for_select(@users, :id, :username), {:class => "form-select"} %>
   </div>
 
   <div>
-    <%= form.label :beerclub_id, style: "display: block" %>
-    <%= form.select :beerclub_id, options_from_collection_for_select(@beerclubs, :id, :name) %>
+    <%= form.label :beerclub_id, class:"form-label", style: "display: block" %>
+    <%= form.select :beerclub_id, options_from_collection_for_select(@beerclubs, :id, :name), {:class => "form-select"}  %>
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit, class:"btn btn-primary" %>
   </div>
 <% end %>

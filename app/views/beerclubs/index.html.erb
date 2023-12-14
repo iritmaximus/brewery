@@ -4,9 +4,9 @@
   <% @beerclubs.each do |beerclub| %>
     <%= render beerclub %>
     <p>
-      <%= link_to "Show this beerclub", beerclub %>
+      <%= link_to "Show this beerclub", beerclub, class:"btn btn-primary" %>
     </p>
   <% end %>
 </div>
 
-<%= link_to "New beerclub", new_beerclub_path if current_user %>
+<%= link_to("New beerclub", new_beerclub_path, class:"btn btn-primary") if current_user %>

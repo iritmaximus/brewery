@@ -5,3 +5,6 @@
     <%= render style %>
   <% end %>
 <% end %>
+
+
+<%= link_to("New style", new_style_path, class:"btn btn-primary") if current_user %>
