@@ -3,7 +3,7 @@ module RatingAverage
 
   def average_rating
     if instance_of?(Beer)
-      ratings = [self]
+      ratings = self.ratings
     elsif instance_of?(Brewery)
       # creates empty arrays for beers that have no ratings
       # + wraps the array in an array
@@ -14,7 +14,7 @@ module RatingAverage
       raise "Wrong class type for calculating average, #{self.class}"
     end
 
-    return 0 unless ratings.count > 0
+    return 0 unless ratings && ratings.count > 0
 
     ratings.map(&:score).sum / ratings.count.to_f
   end

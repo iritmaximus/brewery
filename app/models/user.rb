@@ -66,4 +66,12 @@ class User < ApplicationRecord
     end
     highest[:name]
   end
+
+  def self.top n
+    sorted_by_rating_in_desc_order = User.all.sort_by{ |b| b.average_rating }.reverse.take(n)
+  end
+
+  def self.most_active n
+    sorted_by_rating_count_in_desc_order = User.all.sort_by{ |b| b.count_ratings }.reverse.take(n)
+  end
 end

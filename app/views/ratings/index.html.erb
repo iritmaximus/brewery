@@ -1,14 +1,68 @@
 <h2>List of ratings</h2>
 <p>There is <%= pluralize @ratings.count, "rating" %></p>
 
-<ul>
-  <% @ratings.each do |rating| %>
+
+<div class="container text-center">
+  <div class="row">
+
+    <div class="col">
+      <h2>Best beer</h2>
+      <div class="row">
+        <table class="col">
+          <tr>
+            <th><strong>Beer</strong></th>
+            <th><strong>Rating</strong></th>
+          </tr>
+          <% Beer.top(3).each do |beer| %>
+            <tr>
+              <td><%= beer.name %></td>
+              <td><%= beer.average_rating %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+
+    <div class="col">
+      <h2>Best brewery</h2>
+      <div class="row">
+        <table class="col">
+          <tr>
+            <th><strong>Brewery</strong></th>
+            <th><strong>Rating</strong></th>
+          </tr>
+          <% Brewery.top(3).each do |brewery| %>
+            <tr>
+              <td><%= brewery.name %></td>
+              <td><%= brewery.average_rating %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<h2>Most active users</h2>
+<ol>
+  <% User.most_active(3).each do |user| %>
     <li>
-      <%= render rating %>
+      <%= user.username %>, <%= pluralize user.ratings.count, "rating" %>
     </li>
   <% end %>
+</ol>
+
+<h2>Recent ratings</h2>
+<ul>
+  <% Rating.recent.each do |rating| %>
+    <li>
+      <%= rating.beer.name %>, <%= rating.beer.count_ratings %>, <%= rating.created_at %>
+    </li>
+  <% end%>
 
 </ul>
+
 
 <p>
   <%= link_to "New rating", new_rating_path, class:"btn btn-primary" %>
