@@ -11,5 +11,5 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle install
 COPY . .
 
-ENTRYPOINT ["/bin/bash"]
-CMD ["startup.sh"]
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["rails", "server", "-e", "production", "-p", "3000"]
